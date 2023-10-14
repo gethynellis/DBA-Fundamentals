@@ -128,8 +128,33 @@ EXEC sp_WhoIsActive
 @sort_order = '[blocked_session_count] DESC'
 ```
 
-#### 9. Visualizing Checks with Power BI
+#### 9. DBATools DBACHECKS and Visualizing Checks with Power BI
+So if you are in a situation where you are not a full-time DBA, you will want to keep an eye on your environment. Maybe have some checks run and let you know if you run into any issues. Again dbatools and dbachecks will be your friend
+
+This will install what you need to run dbachecks
+
+```PowerShell
+Install-Module Pester -Force -SkipPublisherCheck -RequiredVersion '4.10.1’
+Install-Module dbachecks
+```
+
+This will run subset of the checks. You can change these depending on what you want to check 
+
+ 
+```PowerShell
+$SQLInsts = ("DESKTOP-VKJJ599")
+$CompList = ("DESKTOP-VKJJ599")
+Invoke-DbcCheck -ComputerName $CompList  -SqlInstance $SQLInsts -Checks  ErrorLog, FailedJob, Storage, LastFullBackup -ExcludeDatabase SQLWatch -PassThru -Show Fails | Update-DbcPowerBiDataSource -Path C:\Course
+Start-DbcPowerBi
+```
+
+
 - **DailyChecks Power BI**: Ensure to explore your Power BI dashboard for vital signs and stats from your Daily Checks.
+
+#### 10. SQLWatch for ongoing monitoring
+Lastly, if you need historical data to analyse what has been ongoing on your server, there are lot of good monitoring tools out that you can buy off the shelf. The chances are though, if you don't have a DBA you won't have a monitoring tool either
+
+Marcin has some great documentation on sqlwatch.io so can check that and best of all it's free
 
 ---
 
