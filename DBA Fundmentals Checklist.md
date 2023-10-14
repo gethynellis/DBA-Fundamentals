@@ -18,17 +18,32 @@ I then install the useful community that we demo during the session
 - **Ola Hallengren's Maintenance Solution**: A popular solution for SQL Server backup, integrity check, and index and statistics maintenance.
 - **SQLWatch**: A monitoring solution that utilizes Power BI for visualization.
 
+```PowerShell
+Install-DbaFirstResponderKit -SqlInstance "DESKTOP-VKJJ599" -Database master
+Install-DbaMaintenanceSolution -SqlInstance "DESKTOP-VKJJ599" -InstallJobs -CleanupTime 72
+Install-DbaSqlWatch -SqlInstance "DESKTOP-VKJJ599"
+Install-DbaWhoisactive -SqlInstance "DESKTOP-VKJJ599"
+ ```
+
 #### 3. Database Health Check
-A simple health check to understand the status and any issues with your SQL Server.
+So we'll switch over to SQL Server Management Studio or Azure Data Tools. And we'll use the Spblitz stored procedure to run a quick health check. This will give us a prioritised list of all the things things we will need to look at. This is a simple health check to understand the status and any issues with your SQL Server.
+
+Execute the sp_blitz stored procedure in SSMS
 
 ##### Using SP_Blitz:
 ```SQL
 EXEC sp_Blitz @CheckUserDatabaseObjects = 0;
 ```
-SP_Blitz is a part of FirstResponder Kit and provides a quick overview of the system health and various issues prioritized by criticality.
+SP_Blitz is a part of the FirstResponder Kit and provides a quick overview of the system's health and various issues prioritized by criticality.
+
+The output of this script will generally dictate what you need to next. For the purposes of my demo, we need backups and fact
 
 #### 4. Managing Backups
 Backups can be managed in several ways, including Maintenance Plans via GUI, or scripts.
+
+The code below is taken from the step of a Ola Hellengren full backup job. You don't need to run this, let the agent job run this for you this is just showing you what the syntax looks like
+
+We have deployed the solution and the jobs already, we just need to make sure that they run and 
 
 ##### Using Ola Hallengren's Maintenance Solution:
 ```SQL
@@ -45,15 +60,17 @@ EXECUTE [dbo].[DatabaseBackup]
 #### 5. Security
 Ensure that your SQL Server is securely configured and manage user access effectively.
 
-##### Using SP_Blitz to Show SysAdmins:
-SP_BLITZ reveals sysadmin users amongst other security-related information.
+SP_BLitz will let you know a
 
-```SQL
--- Code to add user to a database, e.g., AdventureWorks, and subsequent check would go here.
-```
+##### Using SP_Blitz to Show SysAdmins:
+SP_BLITZ reveals sysadmin users, amongst other security-related information. Review the peridocally to make sure that only the right people have sysadmin access
+
+I demo a great security in the demo which shows and scripts out all the user permission in a database. It's not my script and I don't have permission to punlish here so I will send you toe sqlservercentral where the script is publish
+
+https://www.sqlservercentral.com/scripts/script-db-level-permissions-v3 
 
 #### 6. Recoverability: Testing Database Backups
-Ensure backups are reliable by using PowerShell commands.
+So we have to our backups running. How can we tell if we tell if they are good and we can retore from them? The short answer is we need to restore them. How can we do that nice easily, well we have dbatools to help us. The command below will retore all the database on an instance. One at a time, Also runing DBCC CHECKDB on the  backups. We will know our backups are good
 
 ```PowerShell
 Test-DbaLastBackup -SqlInstance "lab000001\SQLSERVER2017","lab000001"
@@ -64,6 +81,7 @@ Test-DbaLastBackup -SqlInstance "lab000001\SQLSERVER2017","lab000001"
 - **Index Maintenance**: Handle fragmentation and ensure index optimization.
 
 ##### Utilizing Ola Hallengren's IndexOptimize Job:
+The following is taken from the job step an will reorganise of rebuild your indexes depending the level 
 ```SQL
 EXECUTE dbo.IndexOptimize 
 @Databases = 'USER_DATABASES',
@@ -80,9 +98,29 @@ EXECUTE dbo.IndexOptimize
 Using SQLWatch for monitoring and identifying blocking scenarios using `sp_WhoIsActive`.
 
 ##### Creating a Blocking Scenario:
+Open a a New Query windoed and run the following. The updates a table and leaves the transaction open so we should get locls
 ```SQL
---Your SQL for generating a block would go here.
+USE AdventureWorks2014
+GO
+
+SELECT * FROM [Person].[Person]
+WHERE BusinessEntityID = 1
+
+begin transaction
+
+update Person.Person
+set FirstName = 'Gethyn'
+WHERE BusinessEntityID = 1
 ```
+
+Then we'll try and access from another window, simulating a blocking situations
+
+```SQL
+SELECT * FROM [Person].[Person]
+WHERE BusinessEntityID = 1
+```
+
+In a third window we can find the locks
 ##### Identifying a Blocking Scenario with SP_WhoIsActive:
 ```SQL
 EXEC sp_WhoIsActive
