@@ -78,7 +78,16 @@ The output of this script will generally dictate what you need to do next. But w
 
 ![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/76650202-5d16-4912-bfb4-2e43a92c22b7)
 
+So we know what we need to do, that;s another check off the list
 
+
+- [X] The best tools to use
+- [X] Understand What problems you have
+- [ ] Recoverability
+- [ ] Reliability
+- [ ] Security
+- [ ] Performance
+- [ ] Monitoring and Maintenance
 
 
 ## The Value SQL Server Skills can bring
