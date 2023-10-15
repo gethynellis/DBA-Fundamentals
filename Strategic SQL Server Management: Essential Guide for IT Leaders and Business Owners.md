@@ -244,7 +244,7 @@ https://www.sqlservercentral.com/scripts/script-db-level-permissions-v3
 
 ![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/84964285-9f25-443f-9e80-f1b6d8ed019f)
 
-So we now a handle on security
+So we now have a handle on security
 
 - [X] The best tools to use
 - [X] Understand What problems you have
@@ -343,15 +343,59 @@ EXEC sp_WhoIsActive
 @sort_order = '[blocked_session_count] DESC'
 ```
 
+So we now have a handle on a common performance issue. We'll leave indexing which will also have a positive  impact on performance for another 
+
+- [X] The best tools to use
+- [X] Understand What problems you have
+- [X] Recoverability
+- [X] Reliability
+- [X] Security
+- [X] Performance
+- [ ] Monitoring and Maintenance
+
+## Monitoring and Maintenance
+
+You will need to maintain your indexes as these can get fragmented when database inserts, updates and deletes are running. More importantly though Statsitics, which the optimizer uses to come up with the best plan for executing a query need to be updated. SQL Server will update these automatically, however sometime the algorithm doesn't quite kick in time and you might want to update these yourselfs. Fortunately Ola Hellengren's script can take car eof that for us too. You might need to tweak of change the job settings to get it to to update the indexes for you
+
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/90086e03-a424-49b5-a940-a9d3fb6cce53)
+
+### DBATools DBACHECKS and Visualizing Daily Checks on your SQL Server Estate
+So if you are in a situation where you are not a full-time DBA, you will want to keep an eye on your environment. Maybe have some checks run and let you know if you run into any issues. Again dbatools and dbachecks will be your friend
+
+This will install what you need to run dbachecks
+
+```PowerShell
+Install-Module Pester -Force -SkipPublisherCheck -RequiredVersion '4.10.1’
+Install-Module dbachecks
+```
+
+This will run subset of the checks. You can change these depending on what you want to check 
+
+ 
+```PowerShell
+$SQLInsts = ("DESKTOP-VKJJ599")
+$CompList = ("DESKTOP-VKJJ599")
+Invoke-DbcCheck -ComputerName $CompList  -SqlInstance $SQLInsts -Checks  ErrorLog, FailedJob, Storage, LastFullBackup -ExcludeDatabase SQLWatch -PassThru -Show Fails | Update-DbcPowerBiDataSource -Path C:\Course
+Start-DbcPowerBi
+```
 
 
-## The Value SQL Server Skills can bring
+- **DailyChecks Power BI**: Ensure to explore your Power BI dashboard for vital signs and stats from your Daily Checks.
+
+### SQLWatch for ongoing monitoring
+Lastly, if you need historical data to analyse what has been ongoing on your server, there are lot of good monitoring tools out that you can buy off the shelf. The chances are though, if you don't have a DBA you won't have a monitoring tool either
+
+Marcin has some great documentation on sqlwatch.io so you can check that and best of all, it's free
 
 
+- [X] The best tools to use
+- [X] Understand What problems you have
+- [X] Recoverability
+- [X] Reliability
+- [X] Security
+- [X] Performance
+- [X] Monitoring and Maintenance
 
-
-
-##
 
 
 ## **Unlock Premier SQL Server Expertise Tailored For Your Business**
