@@ -12,3 +12,36 @@ Consider the ramifications of improper SQL Server management. The stakes are hig
 The answer is a resounding no.
 
 In the same vein, the management of SQL Server, the "refinery" of your data-driven business, demands expertise, precision, and strategic foresight. This White Paper delves deep into the intricacies of managing SQL Server effectively, offering insights and guidance tailored for IT leaders and business owners who are at the frontline of the data revolution.
+
+
+## **Unlock Premier SQL Server Expertise Tailored For Your Business**
+
+Step into a world where two decades of unparalleled data experience meets innovation. From my early days as a report writer and web developer to a seasoned Database Administrator (DBA), I've consistently evolved, and so has my venture, gethynellis.com. Our collaboration with the esteemed Wyeden team amplifies our dedication to offering transformative, wallet-friendly solutions tailored to today's dynamic business environment. Dive into our bouquet of offerings:
+
+**SQL Server Virtual DBA (Managed Service)**
+Imagine having an adept DBA at your fingertips without the overhead of hiring one full-time. Integrate our seasoned professionals into your team, ensuring your SQL Server receives impeccable care. Experience our excellence for a month, and if you aren't elated, the month is on us – no strings attached.
+
+**Call-off Contract**
+Seeking flexibility without a long-term commitment? Our call-off contract is your answer. Pre-purchase a set number of days, starting as low as five, to test the waters. It's the ideal choice for SQL Server maestros needing occasional external support without the weight of a hefty contract.
+
+**SQL Server Migrations and Upgrades**
+Consider every upgrade or migration a breeze. Whether you're transitioning to a cloud platform or updating your SQL Server, we guarantee a seamless shift, keeping your data's sanctity intact.
+
+**SQL Server Health Checks & Performance Tweaks**
+Trust our meticulous checks and tuning to keep your SQL
+
+Server at its optimal performance. Data is the lifeblood of your business, and we ensure it flows without a hitch.
+
+**Data Platform Architecture & Design**
+Crafting robust data platform architectures is our forte. From high availability to disaster recovery solutions, we also guide you on licensing intricacies to balance compliance with cost-effectiveness.
+
+**Data Architecture & Strategy Consulting**
+Illuminate your business's data trajectory. We're your partners in sculpting potent data architectures and actionable data strategies.
+
+**Training on SQL Server & Microsoft Data Platform**
+Propel your team's prowess with our in-depth training modules, inclusive of the Microsoft Official Curriculum.
+
+**Critical Friend Advisory**
+Every journey has its bumps. As your 'Critical Friend,' lean on us for unbiased, expert advice, ensuring smooth sailing through both technical and non-technical terrains.
+
+At its core, overseeing SQL Server shouldn't be overwhelming for you. Shed the weight of recruiting a full-time member or committing to a hefty service contract. Trust Gethyn Ellis to offer tailored assistance that aligns with your needs. Connect with us, and together we'll shape an ideal solution tailored just for you.
