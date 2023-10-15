@@ -228,6 +228,8 @@ We are making good progress through out checklist
 - [ ] Performance
 - [ ] Monitoring and Maintenance
 
+
+
 ## Security
 From a security perspectiuve you will want to undersand who has sysadmin access to your databases server. If you have sysadmin access you can do anything you like to the server. It's a role that only a few will have access too. As a DBA you will want to monitor who has access 
 
@@ -251,6 +253,97 @@ So we now a handle on security
 - [X] Security
 - [ ] Performance
 - [ ] Monitoring and Maintenance
+
+
+## Performance - Blocking
+
+Blocking in SQL Server (and databases in general) is a typical performance issue because it's essentially about competition for resources. When multiple processes try to access the same resource, especially in high-transaction environments, they can't all get what they want at the same time. This situation results in waits, queues, and reduced performance. Let’s dig a bit deeper.
+
+### Why Blocking Occurs:
+
+1. **Resource Competition**:
+   - Multiple transactions try to access the same resource simultaneously. One transaction locks a resource, and others must wait, resulting in blocking.
+
+2. **Locking**:
+   - SQL Server uses various locks (like row locks, page locks, and table locks) to ensure data consistency and integrity during transactions. While a resource is locked by one transaction, others that want to access it must wait, causing blocks.
+
+### Why Blocking is a Common Performance Issue:
+
+1. **Concurrent Access**:
+   - In busy systems, many users or processes often try to access the same data simultaneously, increasing the probability of blocking issues.
+
+2. **Long-Running Transactions**:
+   - Transactions that take a long time to complete hold locks for longer, increasing the likelihood that other transactions will be blocked.
+
+3. **Lack of Optimization**:
+   - Poorly optimized queries or indexes may lead to unnecessary or prolonged locks, contributing to blocking.
+
+4. **Inadequate Isolation Levels**:
+   - Lower isolation levels reduce locking and blocking but might compromise data consistency. Higher isolation levels safeguard consistency but increase locking and therefore blocking.
+
+5. **High Transaction Volumes**:
+   - Systems with high transaction volumes inherently have more contention for resources, leading to more potential blocking.
+
+6. **Schema Design Issues**:
+   - Design issues like improper indexing, normalization issues, or other schema-related problems might force queries to obtain more locks than necessary, escalating blocking scenarios.
+
+### Impact on Performance:
+
+- **Delayed Transactions**: Other transactions have to wait their turn to access resources, causing delays.
+  
+- **Reduced Throughput**: The transaction rate can be throttled by blocking, reducing the system’s throughput.
+
+- **Increased Latency**: The time to complete individual transactions can increase, harming the user experience.
+
+- **Potential Deadlocks**: In some cases, blocking can evolve into deadlocks, where transactions mutually block each other.
+
+### Mitigation:
+
+1. **Query Optimization**:
+   - Ensuring that queries are as efficient as possible can reduce lock times and minimize blocking.
+
+2. **Index Optimization**:
+   - Proper indexing ensures data can be accessed with minimal locking, reducing the chances of blocking.
+
+3. **Monitoring and Alerting**:
+   - Implementing monitoring to alert for blocking issues allows for pro-active issue resolution.
+
+By understanding and addressing the causes and impacts of blocking, you can fine-tune database performance and ensure smoother, more consistent interactions for end-users.
+
+You use the following to simulate a blocking scenario and see how you can use sp_whoisactive to view get infromation on the blocking scenario
+
+##### Creating a Blocking Scenario:
+Open a a New Query windoed and run the following. The updates a table and leaves the transaction open so we should get locls
+```SQL
+USE AdventureWorks2014
+GO
+
+SELECT * FROM [Person].[Person]
+WHERE BusinessEntityID = 1
+
+begin transaction
+
+update Person.Person
+set FirstName = 'Gethyn'
+WHERE BusinessEntityID = 1
+```
+
+Then we'll try and access from another window, simulating a blocking situations
+
+```SQL
+SELECT * FROM [Person].[Person]
+WHERE BusinessEntityID = 1
+```
+
+In a third window we can find the locks
+##### Identifying a Blocking Scenario with SP_WhoIsActive:
+```SQL
+EXEC sp_WhoIsActive
+@find_block_leaders = 1,
+@sort_order = '[blocked_session_count] DESC'
+```
+
+
 
 ## The Value SQL Server Skills can bring
 
