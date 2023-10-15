@@ -16,14 +16,56 @@ In the same vein, the management of SQL Server, the "refinery" of your data-driv
 ## Where to start
 If you have SQL Server manage, but you don't have dedicated in-house expertise it can feel a little daunting as you wonder where to start. Let me start by giving a checklist of things you will need to ensure are in place to keep your SQL Server humming along nicely while you focus on your other job
 
+- [ ] The best tools to use
+- [ ] Understand What problems you have
+- [ ] Recoverability
+- [ ] Reliability
+- [ ] Security
+- [ ] Performance
+- [ ] Monitoring and Maintenance
+
+## The best tools to use Free Tools that can really help you 
+If you are looking after SQL Server you want to keep things as simple as possible. There are some great free tools out that can save you time, which is no doubt a precious commodity for you and also allow you to keep your database management activities as simple as possible.
+
+The tools I'd recommend you install include the following. Most of these have their own websites and GitHub repositories so if you want to find out more go to your favourite browser and search for them
+
+- **DBATools:** - a set of PowerShell commands that make working with SQL Server a breeze 
+- **DbaChecks:** - Dba Checks is part of DBA tools. There are some additional steps to install all the components. This tool can be used to check your SQL Servers every day to see if there is anything you need to worry about. You can come in the morning to check a PowerBI and see if you need to fix anything before getting on with your day
+- **FirstResponder Kit:** Contains a suite of scripts for DBAs to aid in health checks, diagnostics, and data collection.
+- **Ola Hallengren's Maintenance Solution:** A popular SQL Server backup, integrity check, and index and statistics maintenance solution.
+- **SP_Whoisactive** - A useful stroed procedure that can help you identify what might be causing your SQL Server block up
+- **SQLWatch:** A monitoring solution that utilizes Power BI for visualization.
+
+We can install these using PowerShell with a few lines of code. These tools will be ready for your use. You specify multiple SQL instances if you want to install these on more than one SQL Server installation.
+
+```PowerShell
+Install-Module -Name dbatools
+Install-Module Pester -SkipPublisherCheck -Force -RequiredVersion 4.10.0
+Import-Module Pester -Force -RequiredVersion 4.10.0
+Install-DbaFirstResponderKit -SqlInstance "DESKTOP-VKJJ599" -Database master
+Install-DbaMaintenanceSolution -SqlInstance "DESKTOP-VKJJ599" -InstallJobs -CleanupTime 72
+Install-DbaSqlWatch -SqlInstance "DESKTOP-VKJJ599"
+Install-DbaWhoisactive -SqlInstance "DESKTOP-VKJJ599"
+```
+
+We are ready to check a task as done on our list
+
+- [X] The best tools to use
+- [ ] Understand What problems you have
+- [ ] Recoverability
+- [ ] Reliability
+- [ ] Security
+- [ ] Performance
+- [ ] Monitoring and Maintenance
+
+## Understand What problems you have
+
+
+
 ## The Value SQL Server Skills can bring
 
-Security
-Recoverability
-Reliability
-Performance
-Monitoring and Maintenance
-![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/013b02e2-f80b-44c3-81bb-1c7371f390ff)
+
+
 
 
 ##
@@ -32,6 +74,9 @@ Monitoring and Maintenance
 ## **Unlock Premier SQL Server Expertise Tailored For Your Business**
 
 Step into a world where two decades of unparalleled data experience meets innovation. From my early days as a report writer and web developer to a seasoned Database Administrator (DBA), I've consistently evolved, and so has my venture, gethynellis.com. Our collaboration with the esteemed Wyeden team amplifies our dedication to offering transformative, wallet-friendly solutions tailored to today's dynamic business environment. Dive into our bouquet of offerings:
+
+**Exclusive SQL Server DBA Workshop**
+Dive deep for a day with our top-tier consultants. Together, we'll navigate our comprehensive checklist, ensuring not only that everything is perfectly configured for you but also that you grasp the reasons behind each setting. Depart from our session with the confidence that your SQL Server is in prime condition. And while we arm you with the knowledge to manage your SQL Server moving forward, remember we're just a call away should you ever need further assistance. Empower yourself and ensure your SQL Server's robust health with our workshop.
 
 **SQL Server Virtual DBA (Managed Service)**
 Imagine having an adept DBA at your fingertips without the overhead of hiring one full-time. Integrate our seasoned professionals into your team, ensuring your SQL Server receives impeccable care. Experience our excellence for a month, and if you aren't elated, the month is on us – no strings attached.
