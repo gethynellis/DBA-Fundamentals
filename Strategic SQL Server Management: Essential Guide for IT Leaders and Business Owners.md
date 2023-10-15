@@ -144,6 +144,83 @@ These are how the jobs look on the SQL Server Agent
 
 ![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/255ca1a8-9ce9-4a2e-a1b4-d792b4bb6a72)
 
+### Recoverability: Testing Database Backups
+So we have to our backups running. How can we tell if we tell if they are good and we can retore from them? The short answer is we need to restore them. How can we do that nice easily, well we have dbatools to help us. The command below will retore all the database on an instance. One at a time, Also runing DBCC CHECKDB on the  backups. We will know our backups are good
+
+```PowerShell
+Test-DbaLastBackup -SqlInstance "lab000001\SQLSERVER2017","lab000001"
+```
+
+You simply need enough free space for your largest database to run the  restore test. This  powershell command will restore the database using a different name, run a CHECKDB  against the restore and tear down your restored database. 
+
+Test your backups, they could save your business if you ever need them.
+
+We have are making progress now down our list
+
+- [X] The best tools to use
+- [X] Understand What problems you have
+- [X] Recoverability
+- [ ] Reliability
+- [ ] Security
+- [ ] Performance
+- [ ] Monitoring and Maintenance
+
+## Reliability
+
+`CHECKDB` in SQL Server is a command that helps in ensuring the integrity and consistency of database structures. When we talk about `CHECKDB`, we typically mean the command `DBCC CHECKDB`, where `DBCC` stands for Database Console Commands, which are a series of statements in SQL Server for database maintenance and management.
+
+### What does `CHECKDB` do?
+
+1. **Integrity Checks**: 
+   - It verifies the physical and logical integrity of all the objects in the specified database.
+   
+2. **Allocations Checks**:
+   - It checks all the allocation structures for consistency and ensures there's no allocation error.
+
+3. **System Table Checks**:
+   - It checks system tables for corruption and ensures system tables are functioning correctly.
+
+4. **Index Checks**:
+   - It checks the indexes in the database for consistency to ensure that data retrieval can occur optimally.
+   
+5. **Row and Page Checks**:
+   - It ensures that every row and page in the database is correctly linked and there's no corruption in the data.
+   
+### Why should people run `CHECKDB`?
+
+1. **Data Integrity**:
+   - To ensure that the data stored in the database remains reliable and consistent, and no corruption has occurred that could undermine data quality.
+   
+2. **Prevent Data Loss**:
+   - Detecting corruption early can help prevent data loss by giving you a chance to repair issues before they become critical, or to restore from a backup while minimal data is lost.
+   
+3. **Performance Maintenance**:
+   - Though logical inconsistencies might not always be evident to users, they can impact performance. Running `CHECKDB` helps ensure optimal performance by identifying and allowing you to resolve any inconsistencies.
+   
+4. **Disaster Recovery Planning**:
+   - Ensuring that backups are free from corruption is vital in a disaster recovery plan. Running `CHECKDB` against a restored backup ensures that the backup is sound and restorable.
+
+5. **Avoiding Downtime**:
+   - Identifying and resolving issues before they lead to significant problems can help you avoid unexpected downtime.
+
+### Usage Example:
+
+```SQL
+DBCC CHECKDB ('YourDatabaseName')
+```
+
+You replace `'YourDatabaseName'` with the name of the database you want to check. Running `CHECKDB` can be resource-intensive, so it's often recommended to run it during periods of low database usage if possible.
+
+In simple terms, think of `DBCC CHECKDB` like a doctor's check-up but for your database. It checks all the vital aspects to ensure everything is in order and functioning properly, helping to maintain healthy data and a reliable system. You should run it regularly.
+
+Luckily the Ola Hellengren maintenance solution can take care of this for you too. You just need to schedule the jobs to run at off peak period for your database workload. Think out of hours during the night. The jobs will look like this
+
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/d7b7f843-0fe2-4b6f-b54a-7ecd1eb43d41)
+
+
+
+
+
 
 ## The Value SQL Server Skills can bring
 
