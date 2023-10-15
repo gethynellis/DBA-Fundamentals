@@ -27,6 +27,8 @@ If you have SQL Server manage, but you don't have dedicated in-house expertise i
 ## The best tools to use Free Tools that can really help you 
 If you are looking after SQL Server you want to keep things as simple as possible. There are some great free tools out that can save you time, which is no doubt a precious commodity for you and also allow you to keep your database management activities as simple as possible.
 
+I'm going to assume that you are familiar or at least have used SQL Server Management Studio previously as that is SQL Servers main client utility for DBAs and Developers alike, but that too is a free download.
+
 The tools I'd recommend you install include the following. Most of these have their own websites and GitHub repositories so if you want to find out more go to your favourite browser and search for them
 
 - **DBATools:** - a set of PowerShell commands that make working with SQL Server a breeze 
@@ -58,7 +60,24 @@ We are ready to check a task as done on our list
 - [ ] Performance
 - [ ] Monitoring and Maintenance
 
-## Understand What problems you have
+## Understand What problems, if you need fix quickly
+
+Brent Ozar has developed a first responder kit which he has made open source and freely available. You can use his tools for many things but the one I like is the quick SQL Server health check it will let you run on any SQL Server instance
+
+So we'll switch over to SQL Server Management Studio or Azure Data Tools, whichever is your preference. And we'll use the sp_blitz stored procedure that is part of the first respnder kit to run a quick health check. This will give us a prioritised list of all the things things we will need to look at. This is a simple health check to understand the status and any issues with your SQL Server and more importanly it tells you where to start.
+
+Execute the sp_blitz stored procedure in SSMS
+
+##### Using SP_Blitz:
+```SQL
+EXEC sp_Blitz @CheckUserDatabaseObjects = 0;
+```
+SP_Blitz is a part of the FirstResponder Kit and provides a quick overview of the system's health and various issues prioritized by criticality.
+
+The output of this script will generally dictate what you need to do next. But we'll cover the main areas here
+
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/76650202-5d16-4912-bfb4-2e43a92c22b7)
+
 
 
 
