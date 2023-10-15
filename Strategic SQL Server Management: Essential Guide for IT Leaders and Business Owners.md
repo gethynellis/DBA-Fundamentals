@@ -60,7 +60,7 @@ We are ready to check a task as done on our list
 - [ ] Performance
 - [ ] Monitoring and Maintenance
 
-## Understand What problems, if you need fix quickly
+## Understand what problems, if any, you need fix
 
 Brent Ozar has developed a first responder kit which he has made open source and freely available. You can use his tools for many things but the one I like is the quick SQL Server health check it will let you run on any SQL Server instance
 
