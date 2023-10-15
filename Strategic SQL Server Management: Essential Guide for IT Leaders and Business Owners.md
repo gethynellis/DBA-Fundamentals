@@ -218,9 +218,39 @@ Luckily the Ola Hellengren maintenance solution can take care of this for you to
 ![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/d7b7f843-0fe2-4b6f-b54a-7ecd1eb43d41)
 
 
+We are making good progress through out checklist
+
+- [X] The best tools to use
+- [X] Understand What problems you have
+- [X] Recoverability
+- [X] Reliability
+- [ ] Security
+- [ ] Performance
+- [ ] Monitoring and Maintenance
+
+## Security
+From a security perspectiuve you will want to undersand who has sysadmin access to your databases server. If you have sysadmin access you can do anything you like to the server. It's a role that only a few will have access too. As a DBA you will want to monitor who has access 
+
+SP_BLITZ reveals sysadmin users, amongst other security-related information. Review the peridocally to make sure that only the right people have sysadmin access
+
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/97020a94-a010-413a-8c6a-d3a5792be453)
 
 
+I demo a great security in the demo which shows and scripts out all the user permission in a database. It's not my script and I don't have permission to punlish here so I will send you toe sqlservercentral where the script is publish
 
+https://www.sqlservercentral.com/scripts/script-db-level-permissions-v3 
+
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/84964285-9f25-443f-9e80-f1b6d8ed019f)
+
+So we now a handle on security
+
+- [X] The best tools to use
+- [X] Understand What problems you have
+- [X] Recoverability
+- [X] Reliability
+- [X] Security
+- [ ] Performance
+- [ ] Monitoring and Maintenance
 
 ## The Value SQL Server Skills can bring
 
