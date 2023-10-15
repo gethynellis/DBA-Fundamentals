@@ -89,6 +89,61 @@ So we know what we need to do, that;s another check off the list
 - [ ] Performance
 - [ ] Monitoring and Maintenance
 
+## Recoverability
+What we are talking about here is the ability to recover your database should something bad happen. If you think nothing bad can happen to your databases let me share some real life examples iwth with that will hopefully make you think differently
+
+- A developer accidentally runs an update statement without a  ```WHERE``` clause so all your prices get updated to be £1.99
+- A developer accidentally runs a delete statement without  a ```WHERE```  clause so all your prices get deleted
+- Three disks in the same raid array fail in the space of 30 minutes
+
+The list could go on here, things happen, you business data i critical to your business. You need to be ensure it is firstly backed up, then secondly, you can restore it.
+
+So we'll do that first
+
+### Managing Backups
+Backups can be managed in several ways, including Maintenance Plans via GUI, or scripts.
+
+It's worth noting a little about each database's recovery model, SQL Server recovery models are designed to control transaction log maintenance and to help manage different approaches to recovery from failures. They determine how transactions are logged, whether the transaction log requires (and allows) backing up, and what kinds of restore operations are available. There are three main recovery models in SQL Server: 
+
+1. **Full Recovery Model**:
+    - **Logging**: All transactions are fully logged.
+    - **Backup**: Both full and transaction log backups can be made.
+    - **Recovery**: Can recover to an exact point in time (assuming all needed log backups are available).
+    - **Usage**: This model is essential when you require the ability to restore to a specific point in time, such as in systems where data accuracy and completeness are critical.
+
+2. **Bulk-Logged Recovery Model**:
+    - **Logging**: Most transactions are fully logged, but certain bulk operations are minimally logged.
+    - **Backup**: Both full and transaction log backups can be made.
+    - **Recovery**: Can recover to the end of any backup, but point-in-time recovery is not available for bulk operations. 
+    - **Usage**: This model is useful when performing bulk operations for performance reasons, and when it's acceptable to not have point-in-time recovery for those operations.
+
+3. **Simple Recovery Model**:
+    - **Logging**: All transactions are fully logged.
+    - **Backup**: Only full and differential backups are possible (transaction log backups are not available).
+    - **Recovery**: Can recover only up to the end of a backup. No point-in-time recovery.
+    - **Usage**: This model is suitable for development, test environments, or systems where data changes are not critical and data can be recreated or re-imported without significant effort.
+
+Choosing the appropriate recovery model depends on your specific data recovery requirements, including your tolerance for data loss and how much downtime is acceptable in the event of a failure. Whatever recovery model you go with please take the time to understand what you need to manage the log
+
+The code below is taken from the step of an Ola Hellengren full backup job we deployed in a previous step. You don't need to run this below, let the agent job run this for you this is just showing you what the syntax looks like. **You just need to setup the schedule and timing using the SQL Server Agent**
+
+We have deployed the solution and the jobs already. We just need to ensure they run and back up to an appropriate place. This might be off the server, it might be on the server. If you back up to the server, hopefully, ideally, the reality is you want something, whether its another backup tool or something you implement yourself to 
+
+##### Using Ola Hallengren's Maintenance Solution:
+```SQL
+EXECUTE [dbo].[DatabaseBackup]
+@Databases = 'USER_DATABASES',
+@Directory = N'C:\Path\To\Your\Backup\Directory',
+@BackupType = 'FULL',
+@Verify = 'Y',
+@CleanupTime = 72,
+@CheckSum = 'Y',
+@LogToTable = 'N'
+```
+These are how the jobs look on the SQL Server Agent
+
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/255ca1a8-9ce9-4a2e-a1b4-d792b4bb6a72)
+
 
 ## The Value SQL Server Skills can bring
 
