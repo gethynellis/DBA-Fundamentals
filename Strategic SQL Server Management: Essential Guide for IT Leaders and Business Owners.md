@@ -13,6 +13,21 @@ The answer is a resounding no.
 
 In the same vein, the management of SQL Server, the "refinery" of your data-driven business, demands expertise, precision, and strategic foresight. This White Paper delves deep into the intricacies of managing SQL Server effectively, offering insights and guidance tailored for IT leaders and business owners who are at the frontline of the data revolution.
 
+## Where to start
+If you have SQL Server manage, but you don't have dedicated in-house expertise it can feel a little daunting as you wonder where to start. Let me start by giving a checklist of things you will need to ensure are in place to keep your SQL Server humming along nicely while you focus on your other job
+
+## The Value SQL Server Skills can bring
+
+Security
+Recoverability
+Reliability
+Performance
+Monitoring and Maintenance
+![image](https://github.com/gethynellis/DBA-Fundamentals/assets/30595485/013b02e2-f80b-44c3-81bb-1c7371f390ff)
+
+
+##
+
 
 ## **Unlock Premier SQL Server Expertise Tailored For Your Business**
 
